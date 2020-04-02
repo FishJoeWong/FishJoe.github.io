@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Cambria Math:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Statistic, Econometrics, Reading Notes,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇为《高级计量经济学与STATA应用》读书笔记第18章，本篇笔记的内容将主要针对二重差分法展开。 笔记第18章大部分实证分析的目的是为了揭示变量之间的因果关系，但一般的经济数据很难实现对因果关系的有力证明，因此经济学中会经常使用“随机试验”或“自然实验”数据 1. 数据假定有${x_1,x_2,…,x_K}$包含了所有可能影响$y$的因素，则会有以下的集中实验方法  控制实验：控制变量法 随机（">
+<meta name="keywords" content="Statistic, Econometrics, Reading Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级计量经济学与STATA应用NotesChap18">
+<meta property="og:url" content="http://fishjoe.cn/2020/04/02/高级计量经济学与STATA应用NotesChap18/index.html">
+<meta property="og:site_name" content="FishJoe&#39;s Blog">
+<meta property="og:description" content="本篇为《高级计量经济学与STATA应用》读书笔记第18章，本篇笔记的内容将主要针对二重差分法展开。 笔记第18章大部分实证分析的目的是为了揭示变量之间的因果关系，但一般的经济数据很难实现对因果关系的有力证明，因此经济学中会经常使用“随机试验”或“自然实验”数据 1. 数据假定有${x_1,x_2,…,x_K}$包含了所有可能影响$y$的因素，则会有以下的集中实验方法  控制实验：控制变量法 随机（">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="d:/高级计量经济学及Stata应用/高级计量经济学及Stata应用第二版课件/20200401_1.png">
+<meta property="og:updated_time" content="2020-04-02T14:27:36.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高级计量经济学与STATA应用NotesChap18">
+<meta name="twitter:description" content="本篇为《高级计量经济学与STATA应用》读书笔记第18章，本篇笔记的内容将主要针对二重差分法展开。 笔记第18章大部分实证分析的目的是为了揭示变量之间的因果关系，但一般的经济数据很难实现对因果关系的有力证明，因此经济学中会经常使用“随机试验”或“自然实验”数据 1. 数据假定有${x_1,x_2,…,x_K}$包含了所有可能影响$y$的因素，则会有以下的集中实验方法  控制实验：控制变量法 随机（">
+<meta name="twitter:image" content="d:/高级计量经济学及Stata应用/高级计量经济学及Stata应用第二版课件/20200401_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fishjoe.cn/2020/04/02/高级计量经济学与STATA应用NotesChap18/">
+
+
+
+
+
+  <title>高级计量经济学与STATA应用NotesChap18 | FishJoe's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/fishjoewong" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FishJoe's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            博客首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fishjoe.cn/2020/04/02/高级计量经济学与STATA应用NotesChap18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jow Wong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/lfc1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FishJoe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高级计量经济学与STATA应用NotesChap18</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T22:20:33+08:00">
+                2020-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇为《高级计量经济学与STATA应用》读书笔记第18章，本篇笔记的内容将主要针对二重差分法展开。</p>
+<h1 id="笔记第18章"><a href="#笔记第18章" class="headerlink" title="笔记第18章"></a>笔记第18章</h1><p>大部分实证分析的目的是为了揭示变量之间的因果关系，但一般的经济数据很难实现对因果关系的有力证明，因此经济学中会经常使用“随机试验”或“自然实验”数据</p>
+<h2 id="1-数据"><a href="#1-数据" class="headerlink" title="1. 数据"></a>1. 数据</h2><p>假定有${x_1,x_2,…,x_K}$包含了所有可能影响$y$的因素，则会有以下的集中实验方法</p>
+<ul>
+<li>控制实验：控制变量法</li>
+<li>随机（控制）实验：在不能做到除了$x_1$外其他的变量都严格控制不变（即上述控制变量法）的前提下，随机实验即采取了双盲法（double blind）</li>
+<li>自然实验or准实验：某些外部发生的、并非为了实验目的形成的事件使得随机的实验组和控制组自然形成，</li>
+<li>思想实验：并无实际的数据，在理想情形下进行推理</li>
+</ul>
+<h2 id="2-理想的随机实验"><a href="#2-理想的随机实验" class="headerlink" title="2. 理想的随机实验"></a>2. 理想的随机实验</h2><p>分组的概率设计必须是完全随机的，这样才能保证个体的分组或得到的实验处理水平（treatment level）与个体的特征或其他可能影响结果的因素完全独立。这样可以避免遗漏变量偏差（omitted variable bias）或内生变量偏差（endogeneity bias）。</p>
+<p>考虑</p>
+<script type="math/tex; mode=display">
+y_i = \alpha + \beta x_i + \varepsilon</script><p>其中$x_i$是完全随机决定的，而$x_i$和$\varepsilon_i$相互独立，则$\mathrm{Cov}(x_i,\varepsilon_i) = 0$，则无论遗漏多少解释变量，OLS都是一致的；又$\mathrm{E}(\varepsilon_i|x_1,…x_n)=0$，也满足小样本理论中严格外生性假定，因此OLS是无偏的。</p>
+<p>因果效应在理想的随机实验中具体表现为条件期望的差别，即$\mathrm{E}(y|X=x)-\mathrm{E}(y|X=0)$，也称为处理效应。</p>
+<p>具体例子可见原书18.2</p>
+<h2 id="3-随机实验引入更多解释变量"><a href="#3-随机实验引入更多解释变量" class="headerlink" title="3.随机实验引入更多解释变量"></a>3.随机实验引入更多解释变量</h2><p>理想随机实验的情况下OLS是一致而且无偏的估计，但遗漏的变量都在$\varepsilon_i$里面，所以导致其方差较大，OLS估计效率不高，可以通过在模型中引入遗漏变量来解决问题，引入变量也可以同时检验$x_i$是否完全随机。</p>
+<p>假设引入的其他解释变量为$\{z_{i1},…z_{iK}\}$，考虑</p>
+<script type="math/tex; mode=display">
+y_{i}=\alpha+\beta x_{i}+\delta_{1} z_{i 1}+\cdots+\delta_{K} z_{i k}+\varepsilon_{i}</script><p>如果$x_i$符合完全随机的要求，那也意味着$\{z_{i1},…z_{iK}\}$对其将完全没有解释力，通过把$x_i$对$\{z_{i1},…z_{iK}\}$进行回归并检验回归方程的显著性即可判断$x_i$是否完全随机。</p>
+<h2 id="4-随机实验过程中可能的问题"><a href="#4-随机实验过程中可能的问题" class="headerlink" title="4.随机实验过程中可能的问题"></a>4.随机实验过程中可能的问题</h2><ul>
+<li><p>内部有效性：实验过程和实验结构设计中是否出现漏洞</p>
+<p>值得一提的是霍桑效应（Hawthrone Effect），实验的样本在实验过程中感觉到自己被关注而使得实验结果发生变化。</p>
+</li>
+<li><p>外部有效性：样本代表性、小规模实验条件和大规模推广时的差异等</p>
+</li>
+</ul>
+<h2 id="5-自然实验"><a href="#5-自然实验" class="headerlink" title="5.自然实验"></a>5.自然实验</h2><ul>
+<li>个体分组或处理水平完全由自然决定（和随机试验类似），可以直接应用OLS估计因果效应</li>
+<li>个体分组部分由自然实验决定，此时应该以实验带来的随机变动，作为工具变量进行估计</li>
+</ul>
+<p>有许多成功应用自然实验（或添加随即变动作为工具变量分析的自然实验）例子，但值得关注的是自然实验本身是否满足由自然决定这个概念，就如京杭大运河流经的省份GDP比其他地区高，但京杭大运河位置并不是由自然决定的，显然不构成个体处理水平全部或部分由自然决定的前提条件。</p>
+<h2 id="6-双重差分法Difference-in-Difference"><a href="#6-双重差分法Difference-in-Difference" class="headerlink" title="6. 双重差分法Difference in Difference"></a>6. 双重差分法Difference in Difference</h2><p>无论是随机实验还是自然实验，实验结果都需要过一段时间才能表现出来，被解释变量前后的变化就是所需要观察的，考虑两期模型：</p>
+<script type="math/tex; mode=display">
+y_{i t}=\alpha+\gamma D_{t}+\beta x_{i t}+u_{i}+\varepsilon_{i t} \quad(i=1, \cdots, n ; t=1,2)                     \tag {6.1}</script><p>数据对应为实验前和实验后共2期的面板数据，其中$D_t=1,t=2$表示实验后，$D_t=0,t=1$表示实验前，$u_i$为不可观测的个体特征，政策虚拟变量为</p>
+<script type="math/tex; mode=display">
+x_{i t}=\left\{\begin{array}{ll}
+1, &若i\in 实验组，且t=2 \\
+0, & 其他
+\end{array}\right.</script><p>即$t=1$时实验组和控制组$x_{i t}=0$，$t=2$时实验组$x_{i t}=1$，控制组$x_{i t}=0$，若实验未能完全随机化，$x_{i t}$可能与遗漏的个体特征$u_i$有关，导致OLS估计不一致，可以对6.1所得的回归方程进行一阶差分，用第二期减去第一期，可以消去$u_i$，得到一阶差分方程</p>
+<script type="math/tex; mode=display">
+\Delta y_{i}=\gamma+\beta x_{i 2}+\Delta \varepsilon_{i}          \tag{6.2}</script><p>再用OLS进行估计，即可得到一致估计</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{\beta}}_{\mathrm{OLS}}=\Delta \bar{y}_{\text {treat }}-\Delta \bar{y}_{\text {control }}=\left(\bar{y}_{\text {treat }, 2}-\bar{y}_{\text {treat. } 1}\right)-\left(\bar{y}_{\text {control }, 2}-\bar{y}_{\text {control. } 1}\right) \tag{6.3}</script><p>这样的结果称为双重差分估计量（Difference-in-Difference estimator），即实验组的平均变化和控制组的平均变化之差，可以通过这种方法消除不可观测的个体特征对估计的影响，即所谓的实验前差异的影响（Pretreatment difference）</p>
+<p><img src="D:\高级计量经济学及Stata应用\高级计量经济学及Stata应用第二版课件\20200401_1.png" alt="双重差分法解释"></p>
+<p>对于双重差分估计量$\beta_{\mathrm{DID}}$，也可以引入其他解释变量为$\{z_{i1},…z_{iK}\}$，考虑：</p>
+<script type="math/tex; mode=display">
+\Delta y_{i}=\gamma+\beta x_{i 2}+\delta_{1} z_{i 1}+\cdots+\delta_{K} z_{i K}+\Delta \varepsilon_{i}       \tag{6.4}</script><p>根据OLS再对6.4进行估计，则以$\Delta y_{i}$为解释变量的DID不适用于多期数据，需要回到以$y_{it}$为解释变量的面板模型，暂时忽略其他的引入的解释变量$\{z_{i1},…z_{iK}\}$，仍假设两期数据，则可以证明上面的6.2是等价于下面的6.5的：</p>
+<script type="math/tex; mode=display">
+y_{i t}=\beta_{0}+\beta_{1} G_{i} \cdot D_{t}+\beta_{2} G_{i}+\gamma D_{t}+\varepsilon_{i t} \quad(i=1, \cdots, n ; t=1,2) \tag{6.5}</script><p>其中，</p>
+<script type="math/tex; mode=display">
+G_{i}=\left\{\begin{array}{ll}
+1, & 若i\in 实验组\\
+0, & 若i\in 控制组\\
+\end{array}\right.</script><p>$D_t$仍为实验期的虚拟变量，互动项$G_i\bullet D_t=x_{it}$</p>
+<script type="math/tex; mode=display">
+x_{i t}=\left\{\begin{array}{ll}
+1, & 若i\in 实验组，且t=2 \\
+0, & 其他
+\end{array}\right.</script><p>但其实只有$G_i\bullet D_t$的系数$\beta_1$才是我们真正关心的政策的净效应。</p>
+<p>则可以特殊地用分组变量$G_i$表示控制组和实验组的实验前差异，时间变量$D_i$则表示试验前后两期本身之间的差异，互动项$x_{it}$才是真正度量实验组的政策效应。其他的解释变量可以放入方程6.5：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+when\space t=1\\
+&&&
+
+y_{i 1}=\beta_{0}+\beta_{2} G_{i}+\varepsilon_{i 1} \tag{6.6}\\
+when\space t=2\\
+&&&
+y_{i 2}=\beta_{0}+\beta_{1} G_{i} \cdot D_{2}+\beta_{2} G_{i}+\gamma+\varepsilon_{a}\tag{6.7}
+\end{align}</script><p>则用6.7减去6.6即可得</p>
+<script type="math/tex; mode=display">
+\Delta y_{i}=\gamma+\beta_{1} G_{i} \cdot D_{2}+\left(\varepsilon_{22}-\varepsilon_{i 1}\right)=\gamma+\beta_{1} x_{i 2}+\Delta \varepsilon_{i}      \tag{6.8}</script><p>可以借助下面的表格来进行双重差分的理解。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>政策实施前</th>
+<th>政策实施后</th>
+<th>差分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实验组</td>
+<td>$\beta_{0}+\beta_{1}$</td>
+<td>$\beta_{0}+\beta_{1}+\beta_{2}+\gamma$</td>
+<td>$\beta_{2}+\gamma$</td>
+</tr>
+<tr>
+<td>控制组</td>
+<td>$\beta_{0}$</td>
+<td>$\beta_{0}+\beta_{2}$</td>
+<td>$\beta_{2}$</td>
+</tr>
+<tr>
+<td>差分</td>
+<td>$\beta_{1}$</td>
+<td>$\beta_{1}+\gamma$</td>
+<td>$\gamma(\mathrm{DID})$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>此表格展示参考了以下专栏</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/48952513" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/48952513</a></p>
+</blockquote>
+<p>6.8和6.2所得到的差分方程是完全相同的，对6.5进行OLS估计所得到$\hat{\boldsymbol{\beta}}_{1}$即为双重差分估计量，这样面板形式的双重差分估计量可以推广到多期数据，如3期例为</p>
+<script type="math/tex; mode=display">
+y_{i t}=\beta_{0}+\beta_{1} x_{i t}+\beta_{2} G_{i}+\gamma_{1} D 2_{t}+\gamma_{2} D 3_{t}+\varepsilon_{i t} \quad(i=1, \cdots, n ; t=1, \cdots, 3)</script><p>$Dn_t$为对应的第$n$期的时间虚拟变量，且</p>
+<script type="math/tex; mode=display">
+x_{i t}=\left\{\begin{array}{ll}
+1, & 若i\in 实验组，且t\in 实验期 \\
+0, & 其他
+\end{array}\right.</script><p>但是，值得注意的是，双重差分法用于观测数据的时候，如果政策虚拟变量$x_{it}$为内生，如，$x_{it}$与影响$y_{it}$的遗漏变量相关（可以理解为万一政策对微观表现存在逆向因果的影响？），则仍得不到一致估计。</p>
+<h2 id="7-三重差分法"><a href="#7-三重差分法" class="headerlink" title="7.三重差分法"></a>7.三重差分法</h2><p>三重差分法是基于双重差分法的升级，由于DID是基于实验组和控制组时间趋势一致的假设进行的，如果实验组和控制组的时间趋势不一致，利用差分法是无法准确估计出净政策效应的。比如当6.5中的$D_t$项系数$\gamma$在实验组和控制组中不一致时，只能估计出所关心的$x_it$的系数+时间趋势的系数之和。</p>
+<p>书中的例子是研究B州老年人医保政策对健康状况y的影响，这时无法形成理想的自然实验，有两种控制组和实验组的选择：</p>
+<ul>
+<li>65岁以上为实验组，65岁以下为控制组</li>
+<li>B州65岁以上为实验组，A州65岁以上为控制组</li>
+</ul>
+<p>显然这两种方法都会令DID估计的结果出现偏差，结合以上两种方法可得：</p>
+<script type="math/tex; mode=display">
+y=\beta_{0} +\beta_{1}B+\beta_{2}E+\beta_{3}B \bullet E+\gamma_{0}D+\gamma_{1} D \bullet B+ \gamma_{2}D \bullet E+\delta D\bullet B \bullet E+\epsilon_{it}</script><p>其中$B$为B州的虚拟变量（B=1，A=0），E为老年虚拟变量，D为时间虚拟变量，互动项$D\bullet B\bullet E$系数$\delta$即为政策的净效应，这种估计的方法和思路就称为三重差分法（Difference-in-Difference-in-Differences estimator)。</p>
+<h2 id="8-应用DID研究的相关论文阅读"><a href="#8-应用DID研究的相关论文阅读" class="headerlink" title="8.应用DID研究的相关论文阅读"></a>8.应用DID研究的相关论文阅读</h2><p>在上面参考的专栏里有推荐MIT的Duflo关于南非养老金对儿童身体素质影响的论文，但37页的英文论文在短时间很难看得完全明白，因此选择了一篇中文的肖浩博士的论文进行阅读</p>
+<blockquote>
+<p>肖浩, 孔爱国. 融资融券对股价特质性波动的影响机理研究: 基于双重差分模型的检验[J]. 管理世界, 2014, 8: 30-43.</p>
+</blockquote>
+<p>文章的一些专业的金融名词介绍和论文词汇介绍都不是很准确，本次阅读针对的是DID的实际应用而非这篇文章的原本学术目的。文章将先开放（当期）融资融券的股票作为实验组，后开放（下一期）融资融券的股票作为控制组，进行了自然实验，作为控制组的股票也会开放融资融券，因此作者认为不是政策之外的因素导致的控制组股票没在当期开放融资融券（这一点应该是值得探究的）</p>
+<p>文中应用的基本DID模型如下：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+P I E_{i, t}=&\alpha+\beta_{1} \text { Treated}_{i}+\beta_{2} \text { Post }_{i}\\
+&+\beta_{3} \text { Treated }_{i} \times \text { Post }_{i}\\
+&+\text { Time }_{\text {fixed_effect }}+\text { Firm }_{\text {fixed_effect }}+\varepsilon_{i, t}
+\end{array}</script><p>其中被解释变量$PIE_{i,t}$为公司在第t期的股价特异性波动；$Treated_i$为实验组的虚拟变量（dummy），$Post_i$为实验期的虚拟变量，$\beta_{3}$为融资融券交易对股价特异性波动的影响。</p>
+<p>扩容的次数总共有两次，第一次观测区间为08年四季度——11年三季度，实验组为首批扩容的股票，控制组为11年12月扩容的标的证券，实验期为10年二季度到11年3季度；第二次观测区间为10年4季度——12年4季度，实验组为首批扩容股票，控制组为13年1月扩容的股票。实验期为2012年一年。</p>
+<p>数据采用的是季度数据，因此第一个模型共12期数据，第二个模型共8期数据，均为面板数据。</p>
+<p>所关注的变量包括股价信息含量、噪音较以、信息传递程度等，所有被解释变量和解释变量的估算方法这里不详细描述总结，有兴趣可以观看原文。</p>
+<p>实证分析过后，模型结果和理论推理出现了不一致，作者根据前人理论对一些变量在试验前后的变化进行了研究，这里将噪音交易作为举例，文中依据噪音交易对股价波动的影响进行了以下的模型扩展：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+P I E_{i, t}=&\alpha+\beta_{1} \text { Treated}_{i}+\beta_{2} \text { Post }_{i}\\
+&+\beta_{3} \text { Treated }_{i} \times \text { Post }_{i}  \times \text{High}_{i}
++\beta_{4} \text{Treated}_{i} \times \text{Post}_{i} \times 
+\text{Low}_{i}\\
+&+\text { Time }_{\text {fixed_effect }}+\text { Firm }_{\text {fixed_effect }}+\varepsilon_{i, t}
+\end{array}</script><p>其中先计算各个公司噪音中位数$Med_{i}$，计算事前整个实验组的噪音变量$Med$，当$Med_{i} &gt; Med$，$High_i = 1$；同理可得$Low_i$，再依据实证检验结果来的系数和显著性来判断是否存在噪音交易的存在情况和噪音交易对股价波动的影响。</p>
+<p>文章还对DID模型进行了稳健性检验，提到了倾向性匹配得分方法：从事前的控制组中构造一组与事前实验组最为接近的样本作为新的控制组，使用的是最相邻倾向性匹配算法，</p>
+<blockquote>
+<p>Rosenbaum P R, Rubin D B. The central role of the propensity score in observational studies for causal effects[J]. Biometrika, 1983, 70(1): 41-55.</p>
+</blockquote>
+<p>以降低存在的不可观测因素的影响。文中还对实验所观察的时期进行了调整（前后移动），以测试DID结果是否会发生变化（变化了就意味着确实是融资融券政策净效应影响了股价波动，别的时期都没有，是正常的；不变化的结果作者解释为融资融券带来的市场预期影响）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Jow Wong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://fishjoe.cn/2020/04/02/高级计量经济学与STATA应用NotesChap18/" title="高级计量经济学与STATA应用NotesChap18">http://fishjoe.cn/2020/04/02/高级计量经济学与STATA应用NotesChap18/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Statistic-Econometrics-Reading-Notes/" rel="tag"># Statistic, Econometrics, Reading Notes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/30/高级计量经济学与STATA应用NotesChap2/" rel="next" title="高级计量经济学与STATA应用NotesChap2">
+                <i class="fa fa-chevron-left"></i> 高级计量经济学与STATA应用NotesChap2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=5e80d14cc5b92a2e" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/lfc1.jpeg" alt="Jow Wong">
+            
+              <p class="site-author-name" itemprop="name">Jow Wong</p>
+              <p class="site-description motion-element" itemprop="description">A blog for knowledge sharing and recording</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/FishJoeWong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huangjoeprc@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记第18章"><span class="nav-number">1.</span> <span class="nav-text">笔记第18章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据"><span class="nav-number">1.1.</span> <span class="nav-text">1. 数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-理想的随机实验"><span class="nav-number">1.2.</span> <span class="nav-text">2. 理想的随机实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-随机实验引入更多解释变量"><span class="nav-number">1.3.</span> <span class="nav-text">3.随机实验引入更多解释变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-随机实验过程中可能的问题"><span class="nav-number">1.4.</span> <span class="nav-text">4.随机实验过程中可能的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-自然实验"><span class="nav-number">1.5.</span> <span class="nav-text">5.自然实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-双重差分法Difference-in-Difference"><span class="nav-number">1.6.</span> <span class="nav-text">6. 双重差分法Difference in Difference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-三重差分法"><span class="nav-number">1.7.</span> <span class="nav-text">7.三重差分法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-应用DID研究的相关论文阅读"><span class="nav-number">1.8.</span> <span class="nav-text">8.应用DID研究的相关论文阅读</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jow Wong</span>
+
+  
+</div>
+
+ <!--
+ <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
